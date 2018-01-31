@@ -70,3 +70,61 @@ if found then
     puts "3. +10 points of your final grade"
     gets.chomp
 end
+
+# 5. Given the following array definition in Ruby, generate a method named
+#    convert_to_type_strings that takes the array as input and returns a second
+#    array where each element in the array corresponds to a string
+#    representation of the type (e.g. class) of each element in the array.
+
+data = ['hello', 0, :sym, 3.4, "world", true, [0..3]]
+
+def convert_to_type_strings(data)
+    type = Array.new
+    data.each { |val| type.push(val.class.to_s) }
+    return type
+end
+
+print convert_to_type_strings(data), "\n"
+
+# 6. Augment the existing Array class in Ruby so that it has a method named
+#    convert_to_type_strings that does exactly what the method in question #5
+#    above does but using the array’s internal data (e.g. you cannot pass the
+#    array as a parameter).   Hint: investigate the map method defined by
+#    Array.  When you are finished, test with the following code:
+class Array
+    def convert_to_type_strings()
+        type = Array.new(0)
+        self.each { |val| type.push(val.class.to_s) }
+        return type
+    end
+end
+
+data = ['hello', 0, :sym, 3.4, "world", true, [0..3]]
+print data.convert_to_type_strings, "\n"
+
+# 7. Given an array of symbol values representing an ensemble, write a method
+#    called tabulate_sections that produces a hash that maps a string
+#    representation of the section (e.g. type) the instrument belongs to, to
+#    the number of instruments in that section of the ensemble.   For example,
+#    the input array:
+def tabulate_sections(ensemble)
+    sections = Hash.new(0)
+    sections[:percussion] = [:piano]
+    sections[:woodwind] = [:clarinet,:oboe]
+    sections[:brass] = [:trumpet,:frenchhorn]
+    sections[:strings] = [:violin,:cello]
+    tabbed = Hash.new(0)
+    ensemble.each {
+        |instrument|
+        sections.each{
+            |section,instruments|
+            if instruments.include?instrument then
+                tabbed[section] += 1
+            end
+        }
+    }
+    return tabbed
+end
+
+ensemble = [:piano, :clarinet, :oboe, :trumpet, :frenchhorn, :violin, :piano, :oboe, :cello]
+print tabulate_sections(ensemble),"\n"
