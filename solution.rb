@@ -109,10 +109,10 @@ print data.convert_to_type_strings, "\n"
 #    the input array:
 def tabulate_sections(ensemble)
     sections = Hash.new(0)
-    sections[:percussion] = [:piano]
-    sections[:woodwind] = [:clarinet,:oboe]
-    sections[:brass] = [:trumpet,:frenchhorn]
-    sections[:strings] = [:violin,:cello]
+    sections["percussion"] = [:piano]
+    sections["woodwind"] = [:clarinet,:oboe]
+    sections["brass"] = [:trumpet,:frenchhorn]
+    sections["strings"] = [:violin,:cello]
     tabbed = Hash.new(0)
     ensemble.each {
         |instrument|
