@@ -93,9 +93,7 @@ print convert_to_type_strings(data), "\n"
 #    Array.  When you are finished, test with the following code:
 class Array
     def convert_to_type_strings()
-        type = Array.new(0)
-        self.each { |val| type.push(val.class.to_s) }
-        return type
+        type = self.map { |val| val.class.to_s }
     end
 end
 
@@ -107,23 +105,23 @@ print data.convert_to_type_strings, "\n"
 #    representation of the section (e.g. type) the instrument belongs to, to
 #    the number of instruments in that section of the ensemble.   For example,
 #    the input array:
+$sections = {
+  piano: 'percussion',
+  clarinet: 'woodwind',
+  oboe: 'woodwind',
+  trumpet: 'brass',
+  frenchhorn: 'brass',
+  violin: 'strings',
+  cello: 'strings'
+}
+
 def tabulate_sections(ensemble)
-    sections = Hash.new(0)
-    sections["percussion"] = [:piano]
-    sections["woodwind"] = [:clarinet,:oboe]
-    sections["brass"] = [:trumpet,:frenchhorn]
-    sections["strings"] = [:violin,:cello]
-    tabbed = Hash.new(0)
-    ensemble.each {
-        |instrument|
-        sections.each{
-            |section,instruments|
-            if instruments.include?instrument then
-                tabbed[section] += 1
-            end
-        }
-    }
-    return tabbed
+  tabbed = Hash.new(0)
+  ensemble.each do |instrument|
+    puts $sections[instrument]
+    tabbed[$sections[instrument]] += 1
+  end
+  return tabbed
 end
 
 ensemble = [:piano, :clarinet, :oboe, :trumpet, :frenchhorn, :violin, :piano, :oboe, :cello]
